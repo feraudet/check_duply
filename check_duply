@@ -16,15 +16,15 @@ def main():
     parser = argparse.ArgumentParser(description='Nagios Duplicity status checker')
 
     parser.add_argument("-w", dest="warninc", default="28h", type=str, 
-                        help="Number of hours allowed for incremential backup warning level")
+                        help="Number of seconds allowed for incremential backup warning level")
     parser.add_argument("-W", dest="warnfull", default="40h", type=str, 
-                        help="Number of hours allowed for incremential backup critical level")
+                        help="Number of seconds allowed for incremential backup critical level")
 
     parser.add_argument("-c", dest="critinc", default="52D", type=str, 
-                        help="Number of days allowed for full backup warning level")
+                        help="Number of seconds allowed for full backup warning level")
 
     parser.add_argument("-C", dest="critfull", default="60D", type=str, 
-                        help="Number of days allowed for full backup critical level")
+                        help="Number of seconds allowed for full backup critical level")
 
     parser.add_argument("-P", dest="profile", default="backup", type=str, 
                         help="duply profile name")
@@ -40,7 +40,7 @@ def main():
     args.critinc = intstringtoseconds(args.critinc)
     args.critfull = intstringtoseconds(args.critfull)
 
-    output , err = Popen(["duply", args.profile, "status"], stdout=PIPE, stderr=PIPE , env={'HOME': os.environ['HOME'], 'PATH': os.environ['PATH']}).communicate()
+    output , err = Popen(["duply", args.profile, "status"], stdout=PIPE, stderr=PIPE , env={'PATH': os.environ['PATH']}).communicate()
 
     lastfull, lastinc = findlastdates(output)
 
