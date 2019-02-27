@@ -3,12 +3,14 @@
 # By Arne Schwabe <arne-nagios@rfc2549.org>
 # LICENSE: BSD
 
+from __future__ import print_function
 from subprocess import Popen,PIPE
 import sys
 import time
 import os
 import argparse
 import re
+import future
 
 version = '1'
 
